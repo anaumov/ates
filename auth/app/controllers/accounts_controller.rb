@@ -6,4 +6,14 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
   end
+
+  def current
+    render json: account_from_token
+  end
+
+  private
+
+  def account_from_token
+    Account.find(doorkeeper_token.resource_owner_id)
+  end
 end

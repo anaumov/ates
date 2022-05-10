@@ -32,6 +32,7 @@
                                          PUT    /accounts(.:format)                                                                               devise/registrations#update
                                          DELETE /accounts(.:format)                                                                               devise/registrations#destroy
                                          POST   /accounts(.:format)                                                                               devise/registrations#create
+                        current_accounts GET    /accounts/current(.:format)                                                                       accounts#current
                                 accounts GET    /accounts(.:format)                                                                               accounts#index
                             edit_account GET    /accounts/:id/edit(.:format)                                                                      accounts#edit
                                  account GET    /accounts/:id(.:format)                                                                           accounts#show

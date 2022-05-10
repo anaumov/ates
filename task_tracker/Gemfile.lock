@@ -147,9 +147,6 @@ GEM
     omniauth-oauth2 (1.7.2)
       oauth2 (~> 1.4)
       omniauth (>= 1.9, < 3)
-    omniauth-rails_csrf_protection (1.0.1)
-      actionpack (>= 4.2)
-      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     puma (4.3.12)
       nio4r (~> 2.0)
@@ -233,7 +230,6 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   omniauth-oauth2
-  omniauth-rails_csrf_protection (~> 1.0)
   puma (~> 4.3)
   rails (~> 7.0.2, >= 7.0.2.4)
   redis (~> 4.0)

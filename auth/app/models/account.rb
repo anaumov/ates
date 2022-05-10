@@ -16,8 +16,10 @@ class Account < ApplicationRecord
 
   before_create :assign_public_id
 
-  def admin?
-    true # role.admin?
+  delegate :admin?, to: :role
+
+  def role
+    super.inquiry
   end
 
   private

@@ -1,0 +1,33 @@
+<% if tasks.empty? %>
+  <h1>Для вас сейчас нет задач</h1>
+<% end %>
+
+<% if tasks.any? %>
+  <h1>Задачи</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>public_id</th>
+        <th>email</th>
+        <th>name</th>
+        <th>role</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% tasks.each do |task| %>
+        <tr>
+          <td><%= task.id %></td>
+          <td><%= task.account_assign %></td>
+          <td><%= task.status %></td>
+          <td><%= task.description %></td>
+          <td><%= link_to 'Edit', edit_account_path(account) %></td>
+          <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

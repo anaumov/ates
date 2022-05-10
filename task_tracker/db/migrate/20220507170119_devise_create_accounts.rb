@@ -6,10 +6,13 @@ class DeviseCreateAccounts < ActiveRecord::Migration[7.0]
       ## Database authenticatable
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
-      t.string :uid
       t.string :provider
       t.string :doorkeeper_access_token
       t.string :doorkeeper_refresh_token
+
+      t.string :name,      null: false, default: ""
+      t.string :public_id, null: false, default: ""
+      t.string :role,      null: false, default: ""
 
       ## Recoverable
       t.string   :reset_password_token
