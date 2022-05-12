@@ -3,11 +3,9 @@ class Account < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
   devise :omniauthable, omniauth_providers: %i[doorkeeper]
 
   delegate :admin?, to: :role
-
   has_many :tasks
 
   def role
@@ -29,5 +27,4 @@ class Account < ApplicationRecord
       doorkeeper_refresh_token: auth.credentials.refresh_token
     )
   end
-
 end
