@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :accounts, only: %w[show index edit] do
+  resources :accounts, only: %w[show index edit update] do
     get :current, on: :collection
   end
 end

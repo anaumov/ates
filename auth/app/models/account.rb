@@ -25,8 +25,11 @@ class Account < ApplicationRecord
   end
 
   def notify_create
-    payload = { event_name: 'AccountCreated', data: event_data }
-    Event.new(payload).produce('accounts-stream')
+    Event.new(self).produce(action: :created)
+  end
+
+  def event_data
+    as_json(only: %w[email public_id role name])
   end
 
   private
@@ -36,11 +39,6 @@ class Account < ApplicationRecord
   end
 
   def notify_update
-    payload = { event_name: 'AccountUpdated', data: event_data }
-    Event.new(payload).produce('accounts-stream')
-  end
-
-  def event_data
-    as_json(only: %w[email public_id role name])
+    Event.new(self).produce(action: :updated)
   end
 end
