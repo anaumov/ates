@@ -1,17 +1,19 @@
 <% if tasks.empty? %>
   <h1>Для вас сейчас нет задач</h1>
+  <p><%= link_to "Добавить", new_task_path %></p>
 <% end %>
 
 <% if tasks.any? %>
   <h1>Задачи</h1>
+  <p><%= link_to "Добавить", new_task_path %></p>
+  <p><%= link_to "Перемешать", reshuffle_tasks_path, data: { "turbo-method": :post } %></p>
   <table>
     <thead>
       <tr>
-        <th>id</th>
-        <th>public_id</th>
-        <th>email</th>
-        <th>name</th>
-        <th>role</th>
+        <th>#</th>
+        <th>Задача</th>
+        <th>Статус</th>
+        <th>Попуг</th>
         <th></th>
         <th></th>
       </tr>
@@ -21,11 +23,20 @@
       <% tasks.each do |task| %>
         <tr>
           <td><%= task.id %></td>
-          <td><%= task.account_assign %></td>
+          <td><%= task.title %></td>
           <td><%= task.status %></td>
-          <td><%= task.description %></td>
-          <td><%= link_to 'Edit', edit_account_path(account) %></td>
-          <td><%= link_to 'Destroy', account, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= task.account_assign %></td>
+          <td>
+            <% if task.in_progress? && task.belongs_to?(current_account) %>
+              <%= link_to 'Сделал', complete_task_url(task), data: { "turbo-method": :post } %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_account.admin? %>
+              <%= link_to 'Редактировать', edit_task_path(task) %>
+              <%= link_to 'Удалить', task, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

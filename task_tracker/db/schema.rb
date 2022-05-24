@@ -25,7 +25,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_10_110259) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string "description", null: false
+    t.string "title", null: false
     t.integer "account_id"
     t.string "status", default: "in_progress", null: false
     t.datetime "created_at", null: false
