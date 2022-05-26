@@ -1,0 +1,44 @@
+<% if tasks.empty? %>
+  <h1>Для вас сейчас нет задач</h1>
+  <p><%= link_to "Добавить", new_task_path %></p>
+<% end %>
+
+<% if tasks.any? %>
+  <h1>Задачи</h1>
+  <p><%= link_to "Добавить", new_task_path %></p>
+  <p><%= link_to "Перемешать", reshuffle_tasks_path, data: { "turbo-method": :post } %></p>
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Задача</th>
+        <th>Статус</th>
+        <th>Попуг</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% tasks.each do |task| %>
+        <tr>
+          <td><%= task.id %></td>
+          <td><%= task.title %></td>
+          <td><%= task.status %></td>
+          <td><%= task.account_assign %></td>
+          <td>
+            <% if task.in_progress? && task.belongs_to?(current_user) %>
+              <%= link_to 'Сделал', complete_task_url(task), data: { "turbo-method": :post } %>
+            <% end %>
+          </td>
+          <td>
+            <% if current_user.admin? %>
+              <%= link_to 'Редактировать', edit_task_path(task) %>
+              <%= link_to 'Удалить', task, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% end %>

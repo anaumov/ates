@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  use_doorkeeper
+  devise_for :users, class_name: 'Account'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :accounts do
+    get :current, on: :collection
+  end
+
+  root "accounts#index"
 end

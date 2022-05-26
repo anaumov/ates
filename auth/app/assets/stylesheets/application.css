@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+table td, table th {
+  text-align: left;
+}
