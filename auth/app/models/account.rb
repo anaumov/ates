@@ -1,6 +1,4 @@
 class Account < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -14,11 +12,16 @@ class Account < ApplicationRecord
             foreign_key: :resource_owner_id,
             dependent: :destroy
 
+  ROLES = %w[admin employee].freeze
+  validates :email, :role, presence: true
+  validates :role, inclusion: ROLES
+
+  before_validation :assign_password
   before_create :assign_public_id
   after_create :notify_create
   after_update :notify_update
 
-  delegate :admin?, to: :role
+  delegate :admin?, :employee?, to: :role
 
   def role
     super.inquiry
@@ -33,6 +36,10 @@ class Account < ApplicationRecord
   end
 
   private
+
+  def assign_password
+    self.password ||= Devise.friendly_token
+  end
 
   def assign_public_id
     self.public_id = SecureRandom.uuid if public_id.blank?

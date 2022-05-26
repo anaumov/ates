@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :accounts, controllers: {
+  devise_for :users, class_name: 'Account', controllers: {
     omniauth_callbacks: 'omniauth_callbacks'
   }
 

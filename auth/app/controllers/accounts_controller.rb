@@ -1,8 +1,23 @@
 class AccountsController < ApplicationController
-  before_action :authenticate_account!, only: [:index]
+  before_action :authenticate_user!, except: %w[current]
 
-  # GET /accounts
-  # GET /accounts.json
+  def new
+    @account = Account.new(email: generate_email)
+  end
+
+  def edit
+  end
+
+  def create
+    @account = Account.new(account_params)
+
+    if @account.save
+      redirect_to accounts_url, notice: "Задача создана"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def index
     @accounts = Account.all
   end
@@ -24,6 +39,11 @@ class AccountsController < ApplicationController
 
   private
 
+  def generate_email
+    domains = %w[gmail.com outlook.com mail.ru yahoo.com aol.com]
+    "#{SecureRandom.hex[0..6]}@#{domains.sample}"
+  end
+
   def account_from_token
     Account.find(doorkeeper_token.resource_owner_id)
   end
@@ -33,6 +53,6 @@ class AccountsController < ApplicationController
   end
 
   def account_params
-    params.require(:account).permit(:name, :role)
+    params.require(:account).permit(:name, :role, :email)
   end
 end

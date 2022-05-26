@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :authenticate_account!
+  before_action :authenticate_user!
 
   before_action :set_task, only: %i[ edit update destroy complete ]
 
@@ -9,13 +9,13 @@ class TasksController < ApplicationController
 
   def reshuffle
     employees = Account.employee
-    Task.in_progress.each { |task| task.update(account: employees.take) }
+    Task.in_progress.each { |task| task.assign!(employees.sample) }
 
     redirect_to tasks_url, notice: "Перемешали задачки"
   end
 
   def complete
-    current_account.tasks.find(task_id).complete!
+    current_user.tasks.find(task_id).complete!
     redirect_to tasks_url, notice: "Задача закрыта"
   end
 
@@ -53,10 +53,10 @@ class TasksController < ApplicationController
   private
 
   def tasks
-    if current_account.admin?
+    if current_user.admin?
       Task.all
     else
-      current_account.tasks
+      current_user.tasks
     end
   end
 

@@ -10,7 +10,7 @@ Doorkeeper.configure do
     # Put your resource owner authentication logic here.
     # Example implementation:
     # Account.find_by(id: session['warden.user.account.key'].first.first) || redirect_to(new_account_session_path)
-    warden.authenticate!(scope: :account)
+    warden.authenticate!(scope: :user)
   end
 
   # If you didn't skip applications controller from Doorkeeper routes in your application routes.rb
@@ -22,8 +22,8 @@ Doorkeeper.configure do
     # Put your admin authentication logic here.
     # Example implementation:
 
-    if current_account
-      head :forbidden unless current_account.admin?
+    if current_user
+      head :forbidden unless current_user.admin?
     else
       redirect_to sign_in_url
     end

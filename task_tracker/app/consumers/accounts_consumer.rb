@@ -13,7 +13,7 @@ class AccountsConsumer < ApplicationConsumer
 
   private
 
-  def update_account!(account_params)
+  def create_or_update_account!(account_params)
     account = Account.find_or_initialize_by(public_id: account_params[:public_id])
     account.update!(account_params)
   end

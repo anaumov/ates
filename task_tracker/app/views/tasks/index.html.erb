@@ -27,12 +27,12 @@
           <td><%= task.status %></td>
           <td><%= task.account_assign %></td>
           <td>
-            <% if task.in_progress? && task.belongs_to?(current_account) %>
+            <% if task.in_progress? && task.belongs_to?(current_user) %>
               <%= link_to 'Сделал', complete_task_url(task), data: { "turbo-method": :post } %>
             <% end %>
           </td>
           <td>
-            <% if current_account.admin? %>
+            <% if current_user.admin? %>
               <%= link_to 'Редактировать', edit_task_path(task) %>
               <%= link_to 'Удалить', task, data: { "turbo-method": :delete, confirm: 'Are you sure?' } %>
             <% end %>

@@ -17,25 +17,31 @@
            oauth_authorized_applications GET    /oauth/authorized_applications(.:format)                                                          doorkeeper/authorized_applications#index
             oauth_authorized_application DELETE /oauth/authorized_applications/:id(.:format)                                                      doorkeeper/authorized_applications#destroy
                         oauth_token_info GET    /oauth/token/info(.:format)                                                                       doorkeeper/token_info#show
-                     new_account_session GET    /accounts/sign_in(.:format)                                                                       devise/sessions#new
-                         account_session POST   /accounts/sign_in(.:format)                                                                       devise/sessions#create
-                 destroy_account_session DELETE /accounts/sign_out(.:format)                                                                      devise/sessions#destroy
-                    new_account_password GET    /accounts/password/new(.:format)                                                                  devise/passwords#new
-                   edit_account_password GET    /accounts/password/edit(.:format)                                                                 devise/passwords#edit
-                        account_password PATCH  /accounts/password(.:format)                                                                      devise/passwords#update
-                                         PUT    /accounts/password(.:format)                                                                      devise/passwords#update
-                                         POST   /accounts/password(.:format)                                                                      devise/passwords#create
-             cancel_account_registration GET    /accounts/cancel(.:format)                                                                        devise/registrations#cancel
-                new_account_registration GET    /accounts/sign_up(.:format)                                                                       devise/registrations#new
-               edit_account_registration GET    /accounts/edit(.:format)                                                                          devise/registrations#edit
-                    account_registration PATCH  /accounts(.:format)                                                                               devise/registrations#update
-                                         PUT    /accounts(.:format)                                                                               devise/registrations#update
-                                         DELETE /accounts(.:format)                                                                               devise/registrations#destroy
-                                         POST   /accounts(.:format)                                                                               devise/registrations#create
+                        new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
+                            user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
+                    destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
+                       new_user_password GET    /users/password/new(.:format)                                                                     devise/passwords#new
+                      edit_user_password GET    /users/password/edit(.:format)                                                                    devise/passwords#edit
+                           user_password PATCH  /users/password(.:format)                                                                         devise/passwords#update
+                                         PUT    /users/password(.:format)                                                                         devise/passwords#update
+                                         POST   /users/password(.:format)                                                                         devise/passwords#create
+                cancel_user_registration GET    /users/cancel(.:format)                                                                           devise/registrations#cancel
+                   new_user_registration GET    /users/sign_up(.:format)                                                                          devise/registrations#new
+                  edit_user_registration GET    /users/edit(.:format)                                                                             devise/registrations#edit
+                       user_registration PATCH  /users(.:format)                                                                                  devise/registrations#update
+                                         PUT    /users(.:format)                                                                                  devise/registrations#update
+                                         DELETE /users(.:format)                                                                                  devise/registrations#destroy
+                                         POST   /users(.:format)                                                                                  devise/registrations#create
                         current_accounts GET    /accounts/current(.:format)                                                                       accounts#current
                                 accounts GET    /accounts(.:format)                                                                               accounts#index
+                                         POST   /accounts(.:format)                                                                               accounts#create
+                             new_account GET    /accounts/new(.:format)                                                                           accounts#new
                             edit_account GET    /accounts/:id/edit(.:format)                                                                      accounts#edit
                                  account GET    /accounts/:id(.:format)                                                                           accounts#show
+                                         PATCH  /accounts/:id(.:format)                                                                           accounts#update
+                                         PUT    /accounts/:id(.:format)                                                                           accounts#update
+                                         DELETE /accounts/:id(.:format)                                                                           accounts#destroy
+                                    root GET    /                                                                                                 accounts#index
         turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
         turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
        turbo_refresh_historical_location GET    /refresh_historical_location(.:format)                                                            turbo/native/navigation#refresh

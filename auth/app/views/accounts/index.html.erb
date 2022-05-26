@@ -1,5 +1,5 @@
-<h1>Accounts</h1>
-
+<h1>Аккаунты</h1>
+<p><%= link_to 'Добавить', new_account_path %></з>
 <table>
   <thead>
     <tr>
@@ -32,4 +32,4 @@
 <br />
 <br />
 
-<%= link_to('Logout', destroy_account_session_path, method: :delete) %>
+<%= link_to('Выйти', destroy_user_session_path, method: :delete) %>
