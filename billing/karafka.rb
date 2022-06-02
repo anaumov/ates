@@ -45,6 +45,10 @@ class KarafkaApp < Karafka::App
       consumer AccountsConsumer
     end
 
+    topic :tasks do
+      consumer TasksConsumer
+    end
+
     # consumer_group :bigger_group do
     #   topic :test do
     #     consumer TestConsumer
