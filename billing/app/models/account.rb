@@ -1,9 +1,10 @@
+# frozen_string_literal: true
+
 class Account < ApplicationRecord
   devise :omniauthable, omniauth_providers: %i[doorkeeper]
   validates_uniqueness_of :email, allow_blank: true
 
   delegate :admin?, to: :role
-  has_many :tasks
 
   scope :employee, -> { where(role: :employee) }
 
