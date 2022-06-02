@@ -3,5 +3,5 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'omniauth_callbacks'
   }
 
-  # root "articles#index"
+  root "transactions#index"
 end
