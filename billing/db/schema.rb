@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_06_02_081821) do
   create_table "accounts", force: :cascade do |t|
-    t.string "email", default: "", null: false
+    t.string "email"
     t.string "provider"
     t.string "doorkeeper_access_token"
     t.string "doorkeeper_refresh_token"
@@ -21,7 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_081821) do
     t.string "role", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_accounts_on_email", unique: true
+    t.index ["email"], name: "index_accounts_on_email"
   end
 
   create_table "products", force: :cascade do |t|

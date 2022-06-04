@@ -3,7 +3,7 @@
 class AddDeviseToAccounts < ActiveRecord::Migration[7.0]
   def change
     create_table :accounts do |t|
-      t.string :email, null: false, default: ""
+      t.string :email
       t.string :provider
       t.string :doorkeeper_access_token
       t.string :doorkeeper_refresh_token
@@ -15,6 +15,6 @@ class AddDeviseToAccounts < ActiveRecord::Migration[7.0]
       t.timestamps null: false
     end
 
-    add_index :accounts, :email, unique: true
+    add_index :accounts, :email
   end
 end
