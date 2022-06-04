@@ -8,7 +8,7 @@ class Task < ApplicationRecord
 
   belongs_to :account
   before_validation :preset_defaults
-  after_create :notify_added
+  after_create :notify_assigned
 
   delegate :in_progress?, to: :status
   delegate :public_id, to: :account, prefix: true
@@ -26,7 +26,7 @@ class Task < ApplicationRecord
   end
 
   def event_data
-    as_json(only: %w[account_public_id public_id title status])
+    as_json(only: %w[public_id title status], methods: %w[account_public_id])
   end
 
   def assign!(account)
@@ -44,10 +44,6 @@ class Task < ApplicationRecord
   def preset_defaults
     self.status ||= 'in_progress'
     self.public_id ||= SecureRandom.uuid
-  end
-
-  def notify_added
-    Event.new(self).produce(action: :added)
   end
 
   def notify_assigned
