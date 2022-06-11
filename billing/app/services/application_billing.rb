@@ -13,7 +13,7 @@ class ApplicationBilling
 
   private
 
-  def create_transaction
+  def create_and_share_transaction
     transaction = Transaction.create!(
       account: account,
       product: product,

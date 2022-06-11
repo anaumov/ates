@@ -22,6 +22,6 @@ class Transaction < ApplicationRecord
   private
 
   def set_public_id
-    self.transaction_id ||= SecureRandom.uuid
+    self.public_id ||= SecureRandom.uuid
   end
 end
