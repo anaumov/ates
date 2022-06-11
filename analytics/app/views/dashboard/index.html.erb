@@ -1,0 +1,23 @@
+<h1>Попугайная аналитика</h1>
+
+<div class="report">
+  <div class="report__item">
+    <h3>Баланс на сегодня</h3>
+    <p><%= current_balance.format %></p>
+  </div>
+  <div class="report__item">
+    <h3>Попуги в минусе</h3>
+    <ul>
+      <% popugs_with_negative_balance.each do |popug, balance| %>
+        <li><%= popug.human_id %>: <b><%= balance.format %></b></li>
+      <% end %>
+    </ul>
+    <p>Всего: <%= popugs_with_negative_balance.count %></p>
+  </div>
+  <div class="report__item">
+    <h3>Самые дорогие задачи</h3>
+    <p>День: <%= most_expensive_tasks[:day] %></p>
+    <p>Неделя: <%= most_expensive_tasks[:week] %></p>
+    <p>Месяц: <%= most_expensive_tasks[:month] %></p>
+  </div>
+</div>

@@ -7,19 +7,24 @@ class ApplicationBilling
   end
 
   def process!
-    create_transaction
+    create_and_share_transaction
     update_account_balance
   end
 
   private
 
-  def create_transaction
-    Transaction.create!(
+  def create_and_share_transaction
+    transaction = Transaction.create!(
       account: account,
       product: product,
       transaction_type: transaction_type,
       amount: price
     )
+    share_transaction(transaction)
+  end
+
+  def share_transaction(transaction)
+    Event.new(transaction).produce(action: :created)
   end
 
   def update_account_balance
