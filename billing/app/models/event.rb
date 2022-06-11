@@ -1,22 +1,16 @@
 # frozen_string_literal: true
 
 class Event
-  delegate :current_event_version, :event_data, to: :object
-
   def initialize(object)
     @object = object
   end
 
   def produce(action:, topic: nil)
     topic ||= build_topic
-    payload = EventPayload.new(self, action)
-    payload.validate!
-
-    send_event(topic: topic, payload: payload.as_json)
-  end
-
-  def owner_name
-    object.class.name
+    send_event(topic: topic, payload: {
+      name: build_name(action: action),
+      data: object.event_data
+    })
   end
 
   private
@@ -24,7 +18,15 @@ class Event
   attr_reader :data, :object, :action
 
   def build_topic
-    owner_name.downcase.pluralize
+    object_class_name.downcase.pluralize
+  end
+
+  def object_class_name
+    object.class.name
+  end
+
+  def build_name(action:)
+    [object_class_name, action].join('_').camelize
   end
 
   def send_event(topic:, payload:)

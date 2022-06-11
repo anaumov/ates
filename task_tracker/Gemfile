@@ -46,6 +46,7 @@ gem "devise"
 gem "omniauth-oauth2"
 gem "karafka"
 gem "waterdrop"
+gem "schema_registry", github: "davydovanton/event_schema_registry"
 
 # Use Sass to process CSS
 # gem "sassc-rails"
