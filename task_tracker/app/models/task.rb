@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   STATUSES = %w[in_progress completed].freeze
+  CURRENT_EVENT_VERSION = 1
 
   validates :title, :status, presence: true
   validates :status, inclusion: STATUSES
@@ -37,6 +38,10 @@ class Task < ApplicationRecord
   def complete!
     update(status: :completed)
     notify_completed
+  end
+
+  def current_event_version
+    CURRENT_EVENT_VERSION
   end
 
   private
