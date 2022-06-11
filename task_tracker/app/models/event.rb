@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Event
-  Error = Class.new StandardError
-
   delegate :current_event_version, :event_data, to: :object
 
   def initialize(object)
@@ -12,9 +10,9 @@ class Event
   def produce(action:, topic: nil)
     topic ||= build_topic
     payload = EventPayload.new(self, action)
-    raise Error, "Invalid event #{payload.errors}" unless payload.valid?
+    payload.validate!
 
-    send_event(topic: topic, payload: event)
+    send_event(topic: topic, payload: payload.as_json)
   end
 
   def owner_name

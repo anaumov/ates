@@ -1,15 +1,9 @@
 class EventPayload
+  delegate :validate!, :valid?, :errors, to: :validator
+
   def initialize(event, action)
     @event = event
     @action = action
-  end
-
-  def valid?
-    validation_result.success?
-  end
-
-  def errors
-    validation_result.result
   end
 
   def as_json
@@ -28,10 +22,6 @@ class EventPayload
   attr_reader :event, :action
   delegate :owner_name, :event_data, :current_event_version,  to: :event
 
-  def schema_path
-    [owner_name.downcase, action].join('.')
-  end
-
   def generate_event_id
     SecureRandom.uuid
   end
@@ -40,7 +30,12 @@ class EventPayload
     [event.owner_name, action].join('_').camelize
   end
 
-  def validation_result
-    SchemaRegistry.validate_event(as_json, schema_path, version: 1)
+  def validator
+    @validator ||= PayloadValidator.new(
+      payload: as_json,
+      object_name: owner_name,
+      action: action,
+      version: current_event_version
+    )
   end
 end

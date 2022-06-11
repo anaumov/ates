@@ -32,6 +32,7 @@ gem "omniauth-oauth2"
 gem "karafka"
 gem "waterdrop"
 gem "money-rails"
+gem "schema_registry", github: "davydovanton/event_schema_registry"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]

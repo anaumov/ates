@@ -3,7 +3,9 @@
 class TasksConsumer < ApplicationConsumer
   def consume
     payload = params.payload.deep_symbolize_keys
-    case payload[:name]
+    validate_event!(payload)
+
+    case payload[:event_name]
     when "TaskAssigned" then process_task_assignment!(payload[:data])
     when "TaskCompleted" then process_task_completion!(payload[:data])
     else
